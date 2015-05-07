@@ -1,25 +1,13 @@
 Rails.application.routes.draw do
-  get 'pins/index'
+  devise_for :users
 
-  get 'pins/show'
-
-  get 'pins/new'
-
-  get 'pins/create'
-
-  get 'pins/vote'
-
-  get 'pins/edit'
-
-  get 'pins/update'
-
-  get 'pins/destroy'
+  resources :pins
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'pins#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
