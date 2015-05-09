@@ -6,20 +6,26 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    .container
-      .col-md-12
-        = link_to 'Signout', destroy_user_session_path, method: :delete, class: 'btn btn-danger pull-right', data: {confirm: 'You are about to Logout!'} if user_signed_in?
-        = link_to 'Add Pin', new_pin_path, class: 'btn btn-success pull-right' if user_signed_in?
-        - unless user_signed_in?
-          = link_to 'Signup', new_user_registration_path, class: 'btn btn-success pull-right'
-          = link_to 'Signin', new_user_session_path, class: 'btn btn-primary pull-right'
-        - flash.each do |type, msg|
-          %div{class: "alert alert-#{type=='notice' ? 'success' : 'danger'} fadeout alert-dismissible" }
-            %button{class: 'close', 'data-dismiss' => 'alert', 'aria-label'=>'Close'}
-              %span &times;
-            = msg if msg.is_a?(String)
+    %nav.navbar.navbar-default
+      .container
+        .navbar-brand= link_to 'pinBoard', root_path
+        - if user_signed_in?
+          %ul.nav.navbar-nav.navbar-right
+            %li= link_to 'Add Pin', new_pin_path
+            %li= link_to 'Account', edit_user_registration_path
+            %li= link_to 'Logout', destroy_user_session_path, method: :delete, data: {confirm: 'You are about to Logout!'}
+        - else
+          %ul.nav.navbar-nav.navbar-right
+            %li= link_to 'Log in', new_user_session_path
+            %li= link_to 'Sign up', new_user_registration_path
+  .container
+    - flash.each do |type, msg|
+      %div{class: "alert alert-#{type=='notice' ? 'success' : 'danger'} fadeout alert-dismissible" }
+        %button{class: 'close', 'data-dismiss' => 'alert', 'aria-label'=>'Close'}
+          %span &times;
+        = msg if msg.is_a?(String)
 
-        = yield
+    = yield
 
 
 
