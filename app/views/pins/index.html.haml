@@ -1,2 +1,2 @@
-%h1 Pins#index
-%p Find me in app/views/pins/index.html.haml
+- @pins.each do |pin|
+  %h2= link_to pin.title, pin

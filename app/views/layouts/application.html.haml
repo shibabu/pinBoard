@@ -1,0 +1,21 @@
+!!! 5
+%html
+  %head
+    %title pinBoard
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .container
+      .col-md-12
+        - flash.each do |type, msg|
+          %div{class: "alert alert-#{type=='notice' ? 'success' : 'danger'} fadeout alert-dismissible" }
+            %button{class: 'close', 'data-dismiss' => 'alert', 'aria-label'=>'Close'}
+              %span &times;
+            = msg if msg.is_a?(String)
+
+        = yield
+
+
+
+= console

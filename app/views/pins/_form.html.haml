@@ -1,0 +1,14 @@
+= simple_form_for @pin, html: {multipart: true} do |f|
+  - if @pin.errors.any?
+    #errors
+      %strong
+        = pluralize(@pin.errors.count, 'error')
+        prevented this Pin from being saved:
+      %ul
+        - @pin.errors.full_messages.each do |msg|
+          %li= msg
+
+  = f.input :title
+  = f.input :description
+  = f.button :submit, class: 'btn-primary'
+  = link_to 'Cancel', @pin.new_record? ? root_path : @pin, class: 'btn btn-default'
