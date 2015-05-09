@@ -53,7 +53,7 @@ class PinsController < ApplicationController
   end
 
   def pin_params
-    params.require(:pin).permit :title, :description, :user_id
+    params.require(:pin).permit :title, :description, :user_id, :image
   end
 
   def require_same_user
