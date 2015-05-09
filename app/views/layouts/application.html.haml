@@ -8,6 +8,11 @@
   %body
     .container
       .col-md-12
+        = link_to 'Signout', destroy_user_session_path, method: :delete, class: 'btn btn-danger pull-right', data: {confirm: 'You are about to Logout!'} if user_signed_in?
+        = link_to 'Add Pin', new_pin_path, class: 'btn btn-success pull-right' if user_signed_in?
+        - unless user_signed_in?
+          = link_to 'Signup', new_user_registration_path, class: 'btn btn-success pull-right'
+          = link_to 'Signin', new_user_session_path, class: 'btn btn-primary pull-right'
         - flash.each do |type, msg|
           %div{class: "alert alert-#{type=='notice' ? 'success' : 'danger'} fadeout alert-dismissible" }
             %button{class: 'close', 'data-dismiss' => 'alert', 'aria-label'=>'Close'}

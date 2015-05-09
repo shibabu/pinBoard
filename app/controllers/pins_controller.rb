@@ -1,5 +1,7 @@
 class PinsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_pin, except: [:new, :create, :index]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
     @pins=Pin.all.order 'created_at DESC'
@@ -9,11 +11,11 @@ class PinsController < ApplicationController
   end
 
   def new
-    @pin=Pin.new
+    @pin=current_user.pins.build
   end
 
   def create
-    @pin=Pin.new pin_params
+    @pin=current_user.pins.build pin_params
     if @pin.save
       redirect_to @pin, notice: 'Pin created'
     else
@@ -52,5 +54,11 @@ class PinsController < ApplicationController
 
   def pin_params
     params.require(:pin).permit :title, :description, :user_id
+  end
+
+  def require_same_user
+    unless current_user==@pin.user
+      redirect_to root_path, alert: 'You cannot modify other users Pins'
+    end
   end
 end

@@ -1,6 +1,10 @@
 %h1
   = @pin.title
-  = link_to 'Edit', edit_pin_path(@pin), class: 'btn btn-success'
+  = link_to 'Edit', edit_pin_path(@pin), class: 'btn btn-success' if @pin.user==current_user
 %p= @pin.description
+%p
+  %small
+    Submitted by
+    = @pin.user.email
 = link_to 'Back', root_path, class: 'btn btn-default'
-= link_to 'Delete', @pin, class: 'btn btn-danger pull-right', data: {confirm: 'You are about to delete the Pin!'}, method: :delete
+= link_to 'Delete', @pin, class: 'btn btn-danger pull-right', data: {confirm: 'You are about to delete the Pin!'}, method: :delete if @pin.user==current_user
