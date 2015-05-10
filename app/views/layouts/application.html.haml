@@ -18,15 +18,14 @@
           %ul.nav.navbar-nav.navbar-right
             %li= link_to 'Log in', new_user_session_path
             %li= link_to 'Sign up', new_user_registration_path
-  .container
-    - flash.each do |type, msg|
-      %div{class: "alert alert-#{type=='notice' ? 'success' : 'danger'} fadeout alert-dismissible" }
-        %button{class: 'close', 'data-dismiss' => 'alert', 'aria-label'=>'Close'}
-          %span &times;
-        = msg if msg.is_a?(String)
+    .container
+      - flash.each do |type, msg|
+        %div{class: "alert alert-#{type=='notice' ? 'success' : 'danger'} fadeout alert-dismissible" }
+          %button{class: 'close', 'data-dismiss' => 'alert', 'aria-label'=>'Close'}
+            %span &times;
+          = msg if msg.is_a?(String)
 
-    = yield
-
+      = yield
 
 
 = console
