@@ -18,6 +18,8 @@
 
 body {
   background: #E9E9E9;
+  // Give enough space for webconsole
+  margin-bottom: 150px;
 }
 
 #errors {
@@ -70,7 +72,10 @@ nav {
       font-size: 12px;
       border-top: 1px solid #EAEAEA;
       padding: 15px;
-      margin: 0;
+      margin: 10px 0 -10px 0;
+    }
+    .like-btn {
+      margin-top: -20px;
     }
   }
 }

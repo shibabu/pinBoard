@@ -1,12 +1,23 @@
-.col-md-8.col-md-offset-2
-  = image_tag @pin.image.url(:medium)
-  %h1
-    = @pin.title
-    = link_to 'Edit', edit_pin_path(@pin), class: 'btn btn-success' if @pin.user==current_user
-  %p= @pin.description
-  %p
-    %small
-      Submitted by
-      = @pin.user.email
-  = link_to 'Back', root_path, class: 'btn btn-default'
-  = link_to 'Delete', @pin, class: 'btn btn-danger pull-right', data: {confirm: 'You are about to delete the Pin!'}, method: :delete if @pin.user==current_user
+#pin_show.row
+  .col-md-8.col-md-offset-2
+    .panel.btn-default
+      .panel-heading.pin_image
+        = image_tag @pin.image.url(:large)
+      .panel-body
+        %h1
+          = @pin.title
+          = link_to 'Edit', edit_pin_path(@pin), class: 'btn btn-success' if @pin.user==current_user
+          = link_to like_pin_path(@pin), method: :put, class: 'btn btn-default btn-xs pull-right' do
+            %span.glyphicon.glyphicon-heart
+            = @pin.get_upvotes.size
+        %p.description= @pin.description
+      .panel-footer
+        .row
+          .col-md-6
+            %p.user
+              %span.glyphicon.glyphicon-user
+                = @pin.user.email
+          .col-md-6
+            .pull-right
+              = link_to 'Back', root_path, class: 'btn btn-default'
+              = link_to 'Delete', @pin, class: 'btn btn-danger', data: {confirm: 'You are about to delete the Pin!'}, method: :delete if @pin.user==current_user
